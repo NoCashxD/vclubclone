@@ -1,0 +1,131 @@
+body{
+  background: black;
+  color: #adafae;
+  font-size: .875rem;
+}
+/* BillingPage.css */
+.app {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100vw;
+  background: black;
+}
+.main-form {
+  background: #282828;
+  color: var(--text-color);
+  border-radius: 10px;
+  height: calc(100vh - 60px);
+  width: calc(100% - 400px);
+    padding: 1.25rem;
+    margin: 0 auto
+}
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #282828;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .45rem;
+  margin-bottom: 2rem;
+}
+.container-billing {
+  margin-top: 75px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 20px 189.5px 0;
+}
+.nav-tabs {
+  border-bottom: 1px solid #282828;
+}
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav-pills .nav-link, .nav-tabs .nav-link {
+  color: #fff;
+}
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+.tabs-above a {
+  color: white;
+  text-decoration: none;
+
+  border-radius: 5px 5px 0 0;
+  
+}
+.active{
+  background-color: #2a9fd6;
+}
+.alert-success{
+ background: #77b300;
+ color: white;
+}
+.para{
+  font-size: 13px;
+  margin-top: 30px;
+}
+ .transaction-id {
+  margin-top: 20px;
+}
+.transaction-id input{
+  color: white;              /* Input text color */
+  padding: 5px 10px;
+  margin-right: 10px;
+  background: #131313;
+  border-radius: 10px;
+}
+.trans  input {
+  padding: 10px;
+  width: 60%;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black  ;
+}
+
+.container-billing button {
+  padding: 6px 40px;
+  border-radius: 10px;
+  background-color: #6a6a6a75 ;
+  color: white;
+}
+
+#address{
+  background: white;
+  padding: 0.5rem;
+  width: 85%;
+  margin: 20px 0;
+  font-weight: bolder;
+  text-align: center;
+}
+@media only screen and (max-width: 768px){
+  .main-form{
+    width: 100vw;
+  }
+  .container-billing{
+      margin: 0;
+  }
+  .para{
+    flex-direction: column;
+  }
+  .ml-20{
+    margin-left: 0;
+  }
+  
+}

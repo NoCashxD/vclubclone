@@ -1,0 +1,151 @@
+.hover{
+    display: none;
+  }
+  body{
+    color: white;
+    background: none;
+  }
+  body {
+    display: block;
+}
+.btnzz {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 3px 8px;
+    color: #000;
+    background-color: #efeeee;
+    border: 1px solid #777776;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    align-items: center;  /* Centers text vertically */
+    justify-content: center; /* Centers text horizontally */
+    height: 22px;  /* Adjusted to match screenshot */
+    line-height: normal;
+    vertical-align: middle;
+    position: relative;
+    top: 7px;  /* Moves it slightly downward */
+    left: 8px; /* Moves it slightly to the right */
+}
+
+.btnzz:hover {
+    background-color: #e7e7e7;
+    border-color: #999;
+}
+
+.btnzz:active {
+    background-color: #d9d9d9;
+    border-color: #808080;
+}
+
+  .img {
+    width: 40vw;
+    height: 100vh;
+    background-image: url("./logo.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ensures the parent container fills the screen */
+}
+
+input:not([type="image" i]) {
+    box-sizing: border-box;
+}
+user agent stylesheet
+input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i]) {
+    overflow-clip-margin: 0px !important;
+    overflow: clip !important;
+}
+user agent stylesheet
+input[type="submit" i] {
+    appearance: auto;
+    user-select: none;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    color: buttontext;
+    white-space: pre;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+input {
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: field;
+    margin: 0em;
+    padding: 1px 0px;
+    border-image: initial;
+    padding-block: 1px;
+    padding-inline: 2px;
+    font-size: 12px;
+    border: 2px solid grey;
+   
+}
+  @media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+    }
+  }
+  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    padding-right: 15px;
+    padding-left: 15px;
+
+  }
+  @media only screen and (max-width: 768px){
+    .img{
+      width:40vw;
+      border: none;
+      background-image: url("./logo.svg");
+      background-repeat: no-repeat; 
+      height: 30vh;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left:50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%) translateX(-50%);
+    }
+     .btnzz {
+    font-size: 10px;
+    padding: 2px 6px;
+    height: 18px;
+    top: 4px;
+    left: 5px;
+  }
+    input{
+      font-size: 9px;
+    }
+  }

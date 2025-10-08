@@ -1,0 +1,133 @@
+.forgot-password-bg {
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forgot-form-container {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-box {
+  background: #29a7e1;
+  color: #fff;
+  border-radius: 8px;
+  padding: 18px 16px 14px 16px;
+  margin-bottom: 28px;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 400;
+}
+.info-box b {
+  font-weight: 700;
+}
+
+.forgot-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.forgot-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #aed1b2;
+  border-radius: 6px;
+  color: #cbd3c1;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 14px;
+  margin-bottom: 0;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.forgot-input:focus {
+ /* border: 1.5px solid #aed1b2;*/ 
+  color: #282929;
+  background: #fff; /* Changed from transparent to white */
+  box-shadow: 0 0 0 4px rgba(41, 167, 225, 0.3);
+}
+
+.forgot-input::placeholder {
+  color: #545554;
+  font-size: 16px;
+}
+
+.forgot-captcha-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.captcha-input {
+  flex: 1 1 0;
+}
+.captcha-img {
+  height: 38px;
+  width: 90px;
+  border-radius: 5px;
+  background: #fff;
+  object-fit: contain;
+  border: 1px solid #444;
+}
+
+.forgot-btn {
+  background-color: #111c0a; /* dark green */
+  color: white;
+  border: 2px solid #99ff33; /* neon green */
+  border-radius: 18px;
+  font-size: 16px;
+  min-width: 110px;
+  padding: 6px 12px;
+  font-weight: 400;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.forgot-btn:hover {
+  background-color: #7ed63e; /* bright green */
+  color: white;
+  font-weight: 700; /* bold (uncomment if needed) */
+  border: 2px solid #333; /* dark border */
+}
+
+.forgot-links {
+  width: 100%;
+  text-align: center;
+  margin-top: 0;
+}
+.forgot-login-link {
+  color: #519cd1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 16px; /* You can adjust this size as needed */
+}
+.forgot-login-link:hover {
+  color: #376c93;
+  text-decoration: underline;
+}
+
+
+@media (max-width: 480px) {
+  .forgot-form-container {
+    max-width: 98vw;
+    padding: 0 2vw;
+  }
+  .info-box {
+    font-size: 13px;
+    padding: 12px 6px 10px 6px;
+  }
+  .forgot-btn {
+    font-size: 16px;
+  }
+} 

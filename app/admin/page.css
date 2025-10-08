@@ -1,0 +1,211 @@
+body{
+    background: #131313;
+    color: #eee;
+  }
+  /* BillingPage.css */
+  .app {
+    display: flex;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    width: 100vw;
+  }
+  .main-form {
+    padding: 47px 30px 10px 30px;
+    background: var(--background2);
+    color: var(--text-color);
+    border-radius: 25px 0 0 0;
+    min-height: 90vh;
+    margin: 20px 1rem 0;
+    width: 100vw;
+  }
+    h1{
+      font-size: 2rem;
+      color: chocolate;
+    }
+    p{
+      font-size: larger;
+    }
+    h2{
+      font-size: larger;
+      color: brown;
+    }
+    canvas{
+      margin: 0 auto;
+    }
+    .wallet-info {
+      margin: 20px 0;
+    }
+    
+    .transaction-id {
+      margin-top: 20px;
+    }
+    
+  .trans  input {
+      padding: 10px;
+      width: 60%;
+      margin-right: 10px;
+      border-radius: 10px;
+      color: black  ;
+    }
+    
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #ed5d15 ;
+      color: white;
+    }
+  
+    #address{
+      background: white;
+      padding: 0.5rem;
+      width: 85%;
+      margin: 20px 0;
+      font-weight: bolder;
+      text-align: center;
+    }
+    .btndiv{
+        width: 100%;
+    }
+    .btndiv button {
+        background-color: #ee8856;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px !important;
+        border-radius: 5px;
+        font-size: 17px;
+        letter-spacing: 4px;
+        width: 20%;
+    height: min-content;
+      }
+      .admin-main{
+        background: transparent;
+        width: auto;
+      }
+.submit{
+    background: #4cd9649e !important;
+    margin-top: 20px;
+}
+.form-row input, .form-row textarea, .form-row select, .dropdown-btn, .dropdown-content {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    color:black;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: start;
+    min-width: 280px;
+}
+.hover{
+  display: none;
+}
+    @media only screen and (max-width: 768px){
+      .main-form{
+        width: calc(100%);
+      }
+      .ml-52 {
+        margin-left: 0px;
+    }
+    .ml-80{
+      margin-left: 0px;
+    }
+    .gap-20{
+      gap: 10px;
+    }
+    p {
+      font-size: 14px;
+  }
+  #address{
+    width: 100%;
+    font-size: 9px;
+  }
+  small {
+    font-size: 100%;
+    width: 128%;
+    display: block;
+    position: relative;
+  }
+  .transaction-id{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  input{
+    width: 100%;
+    font-size: 14px;
+  }
+  
+.btndiv button {
+    font-size: 10px;
+    letter-spacing: 4px;
+    width: 44%;
+}
+    }
+    
+.table-bordered {
+  border: 1px solid #282828;
+}
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background: #000;
+}
+table {
+  border-collapse: collapse;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, .05);
+}
+.table-bordered tbody tr:nth-of-type(even) {
+  background-color: black;
+}
+.table-bordered td, .table-bordered th {
+  border: 1px solid #282828;
+}
+.table td, .table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #282828;
+}
+th {
+  text-align: inherit;
+  text-align: -webkit-match-parent;
+}
+
+.btns {
+  display: inline-block;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem 1rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-outline-primary {
+  color: #2a9fd6;
+  border-color: #2a9fd6;
+}
+.btn-outline-primary:hover{
+  background: #2a9fd6;
+  color: white;
+}
+.btn-danger {
+  background-color: #c00;
+  padding: 0.1rem 0.8rem !important;
+}

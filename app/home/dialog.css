@@ -1,0 +1,13 @@
+/* Ensure the modal content area is styled correctly */
+.custom-modal-content {
+    background-color: #ffffff; /* White background for the modal content */
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 400px;
+  }
+  .w-full{
+    width: auto;
+  }
+
+  

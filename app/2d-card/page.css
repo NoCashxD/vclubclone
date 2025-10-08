@@ -1,0 +1,214 @@
+@media (min-width: 1200px) {
+  .container-card {
+    max-width: 1140px;
+  }
+}
+
+.container-card {
+  width: 100%;
+  padding: 0 15px;
+  margin: 20px auto 0;
+}
+
+body {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #adafae;
+  background-color: #060606;
+}
+
+ul {
+  gap: 0 !important;
+}
+
+/* General Buttons */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem 1rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: 4px;
+  color: white;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #2a9fd6;
+  border-color: #2a9fd6;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1f7eb4;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Selects & Inputs */
+select,
+input[type="text"],
+input[type="number"] {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: #2a9fd6;
+  box-shadow: 0 0 0 2px rgba(42, 159, 214, 0.2);
+}
+
+/* Slider Styles */
+.slider-div {
+  padding: 0.56rem 1rem;
+  background: var(--backgroundform);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  color: var(--text-color);
+  flex-direction: column;
+}
+
+.slider {
+  position: relative;
+  width: 270px;
+}
+
+.slider__track,
+.slider__range {
+  border-radius: 3px;
+  height: 5px;
+  position: absolute;
+}
+
+.slider__track {
+  background-color: #ced4da;
+  width: 100%;
+  z-index: 1;
+}
+
+.slider__range {
+  background-color: #2a9fd6;
+  z-index: 2;
+}
+
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 270px;
+  outline: none;
+}
+
+.thumb::-webkit-slider-thumb,
+.thumb::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border-radius: 10px;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 14px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* Card Container Hover Effect */
+.card-container {
+  transition: all 0.4s ease;
+  perspective: 1000px;
+}
+
+.card-container:hover {
+  transform: translateY(-8px) rotateX(5deg);
+}
+
+/* Info Box */
+.info-box {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+/* Responsive Layout */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 768px) {
+  .container-card {
+    margin: 20px 10px 0;
+    padding: 0 10px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .slider-div {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .slider,
+  .thumb,
+  select,
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

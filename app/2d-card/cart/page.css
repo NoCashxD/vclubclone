@@ -1,0 +1,294 @@
+@media (min-width: 1200px) {
+  .container-card {
+    max-width: 1140px;
+  }
+}
+
+.container-card {
+  width: 100%;
+  padding: 0 15px;
+  margin: 20px auto 0;
+}
+
+body {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #adafae;
+  background-color: #060606;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem 1rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: 4px;
+  color: white;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: #2a9fd6;
+  color: #fff;
+  border-color: #2a9fd6;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Card */
+.card-container {
+  transition: all 0.3s ease;
+}
+.card-container:hover {
+  transform: translateY(-5px);
+}
+
+.card {
+  position: relative;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card gradient variants */
+.card.mastercard {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+}
+.card.visa {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+.card.amex {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.card.discover {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2a9fd6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .container-card {
+    margin: 20px 10px 0;
+    padding: 0 10px;
+  }
+
+  .card {
+    height: auto;
+    min-height: 180px;
+    padding: 15px !important;
+  }
+
+  .card-container {
+    margin-bottom: 1rem;
+  }
+
+  .card header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .card .logo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card .logo h5 {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .card .card-details {
+    margin-top: 15px;
+  }
+
+  .card h5.number {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .card h5.name {
+    font-size: 14px;
+  }
+
+  .card .valid-date h5 {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card-info {
+    padding: 10px;
+  }
+
+  .card-info .flex {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card-info .flex > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container-card {
+    margin: 20px 50px 0;
+    padding: 0 20px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 20px !important;
+  }
+
+  .card header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .card .logo {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Utility classes (only relevant ones kept) */
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-center {
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
+.text-white {
+  color: #fff;
+}
+.text-lg {
+  font-size: 1.125rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-20 {
+  margin-top: 5rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.w-full {
+  width: 100%;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+}
