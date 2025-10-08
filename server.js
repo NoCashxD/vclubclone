@@ -3495,7 +3495,7 @@ const addressData = {
   ]
 };
 
-// External API fallback for unknown countries (optional)
+// External API for all countries
 async function fetchAddressFromAPI(country) {
   try {
     // Using a free API service for random addresses
@@ -3510,13 +3510,13 @@ async function fetchAddressFromAPI(country) {
       };
     }
   } catch (error) {
-    console.log('External API fallback failed:', error.message);
+    console.log('External API failed:', error.message);
   }
   return null;
 }
 
-// Util: Random realistic address generator by country
-function generateRandomAddressByCountry(country) {
+// Util: Random realistic address generator by country (API only)
+async function generateRandomAddressByCountry(country) {
   const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const streetNames = ['Main St', 'Oak Ave', 'Maple Dr', 'Pine St', 'Cedar Ln', 'Elm St', 'Park Ave', 'Lakeview Dr', 'First St', 'Second Ave', 'Third Blvd', 'Fourth Rd'];
@@ -3528,37 +3528,17 @@ function generateRandomAddressByCountry(country) {
   }
 
   // Debug logging
-  console.log(`Generating address for country: "${country}"`);
+  console.log(`Generating address for country: "${country}" using external API`);
   
-  // Direct exact match with database country names
-  if (addressData[country]) {
-    console.log(`Exact match found for: ${country}`);
-    const region = randomPick(addressData[country]);
-    return {
-      address: addressLine,
-      city: randomPick(region.cities),
-      state: region.state,
-      zip: randomPick(region.zips)
-    };
+  // Always try external API first
+  const apiAddress = await fetchAddressFromAPI(country);
+  if (apiAddress) {
+    console.log(`API address generated for: ${country}`);
+    return apiAddress;
   }
 
-  // Fallback: try case-insensitive matching
-  const normalized = country.toLowerCase().trim();
-  for (const [countryKey, states] of Object.entries(addressData)) {
-    if (normalized === countryKey.toLowerCase()) {
-      console.log(`Case-insensitive match found for: ${countryKey}`);
-      const region = randomPick(states);
-      return {
-        address: addressLine,
-        city: randomPick(region.cities),
-        state: region.state,
-        zip: randomPick(region.zips)
-      };
-    }
-  }
-
-  console.log(`No match found for country: "${country}", using generic address`);
-  // Default generic for unknown countries
+  console.log(`API failed for country: "${country}", using generic address`);
+  // Fallback to generic if API fails
   return { address: addressLine, city: 'Central', state: 'Region', zip: '00000' };
 }
 
@@ -3611,20 +3591,9 @@ app.post('/api/admin/addresses/generate', async (req, res) => {
     for (const row of rows) {
       if (failed) break;
       
-      let addr = generateRandomAddressByCountry(row.country || '');
-      
-      // If we got a generic address and country exists, try external API
-      if (addr.city === 'Central' && row.country && !addressData[row.country]) {
-        try {
-          const apiAddr = await fetchAddressFromAPI(row.country);
-          if (apiAddr) {
-            addr = apiAddr;
-            apiUsed = true;
-          }
-        } catch (error) {
-          console.log('API fallback failed for country:', row.country);
-        }
-      }
+      // Always use external API for address generation
+      const addr = await generateRandomAddressByCountry(row.country || '');
+      apiUsed = true; // Since we're always using API now
 
       const updateSql = 'UPDATE credit_card SET addr = ?, city = ?, state = ?, zip = ? WHERE id = ?';
       const params = [addr.address, addr.city, addr.state, addr.zip, row.id];
@@ -3647,9 +3616,7 @@ app.post('/api/admin/addresses/generate', async (req, res) => {
       return res.status(500).send({ message: 'Failed generating addresses for credit_card' });
     }
 
-    const message = apiUsed 
-      ? `Random addresses generated for ${processed} credit_card entries. Some used external API for unknown countries.`
-      : `Random addresses generated for ${processed} credit_card entries based on country.`;
+    const message = `Random addresses generated for ${processed} credit_card entries using external API.`;
     
     return res.status(200).send({ message });
   });
