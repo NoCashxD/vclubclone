@@ -47,7 +47,7 @@ const db = mysql.createPool({
   connectionLimit: 10,
   host: "147.93.79.55", // Use this instead of "localhost"
   user: "u679703987_clone",
-  password: "u679703987_Clone", // The same password
+  password: "U679703987_clone", // The same password
   database: "u679703987_clone",
   connectTimeout: 30000, // Increase timeout to 30 seconds
   timezone: 'local'
