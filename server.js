@@ -3485,13 +3485,6 @@ app.get('/api/admin/tickets', (req, res) => {
 
 // Comprehensive address data for multiple countries (using exact database country names)
 const addressData = {
-  'UNITED STATES': [
-    { state: 'California', cities: ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento'], zips: ['90001', '92101', '95112', '94102', '93701', '95814'] },
-    { state: 'Texas', cities: ['Houston', 'Dallas', 'Austin', 'San Antonio', 'Fort Worth', 'El Paso'], zips: ['77002', '75201', '73301', '78205', '76102', '79901'] },
-    { state: 'New York', cities: ['New York', 'Buffalo', 'Rochester', 'Albany', 'Syracuse', 'Yonkers'], zips: ['10001', '14201', '14604', '12207', '13201', '10701'] },
-    { state: 'Florida', cities: ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'St. Petersburg', 'Hialeah'], zips: ['33101', '32801', '33602', '32202', '33701', '33010'] },
-    { state: 'Illinois', cities: ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville', 'Springfield'], zips: ['60601', '60502', '61101', '60435', '60540', '62701'] }
-  ],
 
   'INDIA': [
     { state: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur'], zips: ['400001', '411001', '440001', '422001', '431001', '413001'] },
@@ -3499,66 +3492,6 @@ const addressData = {
     { state: 'Delhi', cities: ['New Delhi', 'Dwarka', 'Saket', 'Rohini', 'Karol Bagh', 'Lajpat Nagar'], zips: ['110001', '110075', '110017', '110085', '110005', '110024'] },
     { state: 'Tamil Nadu', cities: ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli'], zips: ['600001', '641001', '625001', '620001', '636001', '627001'] },
     { state: 'Gujarat', cities: ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Bhavnagar', 'Jamnagar'], zips: ['380001', '395001', '390001', '360001', '364001', '361001'] }
-  ],
-
-  'UNITED KINGDOM': [
-    { state: 'England', cities: ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds', 'Sheffield'], zips: ['EC1A', 'M1', 'B1', 'L1', 'LS1', 'S1'] },
-    { state: 'Scotland', cities: ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Stirling', 'Perth'], zips: ['EH1', 'G1', 'AB10', 'DD1', 'FK8', 'PH1'] },
-    { state: 'Wales', cities: ['Cardiff', 'Swansea', 'Newport', 'Wrexham', 'Barry', 'Caerphilly'], zips: ['CF10', 'SA1', 'NP10', 'LL11', 'CF62', 'CF83'] }
-  ],
-
-  'CANADA': [
-    { state: 'Ontario', cities: ['Toronto', 'Ottawa', 'Mississauga', 'Hamilton', 'Brampton', 'London'], zips: ['M5A', 'K1A', 'L5B', 'L8P', 'L6T', 'N6A'] },
-    { state: 'British Columbia', cities: ['Vancouver', 'Victoria', 'Surrey', 'Kelowna', 'Burnaby', 'Richmond'], zips: ['V5K', 'V8W', 'V3T', 'V1Y', 'V5A', 'V6X'] },
-    { state: 'Quebec', cities: ['Montreal', 'Quebec City', 'Laval', 'Gatineau', 'Longueuil', 'Sherbrooke'], zips: ['H1A', 'G1A', 'H7A', 'J8P', 'J4K', 'J1H'] }
-  ],
-
-  'AUSTRALIA': [
-    { state: 'New South Wales', cities: ['Sydney', 'Newcastle', 'Wollongong', 'Parramatta', 'Liverpool', 'Penrith'], zips: ['2000', '2300', '2500', '2150', '2170', '2750'] },
-    { state: 'Victoria', cities: ['Melbourne', 'Geelong', 'Ballarat', 'Bendigo', 'Shepparton', 'Warrnambool'], zips: ['3000', '3220', '3350', '3550', '3630', '3280'] },
-    { state: 'Queensland', cities: ['Brisbane', 'Gold Coast', 'Cairns', 'Townsville', 'Toowoomba', 'Rockhampton'], zips: ['4000', '4217', '4870', '4810', '4350', '4700'] }
-  ],
-
-  'GERMANY': [
-    { state: 'Bavaria', cities: ['Munich', 'Nuremberg', 'Augsburg', 'Regensburg', 'Würzburg', 'Ingolstadt'], zips: ['80331', '90402', '86150', '93047', '97070', '85049'] },
-    { state: 'North Rhine-Westphalia', cities: ['Cologne', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum'], zips: ['50667', '40213', '44135', '45127', '47051', '44787'] },
-    { state: 'Baden-Württemberg', cities: ['Stuttgart', 'Mannheim', 'Karlsruhe', 'Freiburg', 'Heidelberg', 'Ulm'], zips: ['70173', '68159', '76133', '79098', '69117', '89073'] }
-  ],
-
-  'FRANCE': [
-    { state: 'Île-de-France', cities: ['Paris', 'Boulogne-Billancourt', 'Saint-Denis', 'Argenteuil', 'Montreuil', 'Nanterre'], zips: ['75001', '92100', '93200', '95100', '93100', '92000'] },
-    { state: 'Auvergne-Rhône-Alpes', cities: ['Lyon', 'Saint-Étienne', 'Grenoble', 'Villeurbanne', 'Clermont-Ferrand', 'Valence'], zips: ['69001', '42000', '38000', '69100', '63000', '26000'] },
-    { state: 'Provence-Alpes-Côte d\'Azur', cities: ['Marseille', 'Nice', 'Toulon', 'Aix-en-Provence', 'Avignon', 'Cannes'], zips: ['13001', '06000', '83000', '13100', '84000', '06400'] }
-  ],
-
-  'JAPAN': [
-    { state: 'Tokyo', cities: ['Shibuya', 'Shinjuku', 'Chiyoda', 'Minato', 'Toshima', 'Nakano'], zips: ['150-0002', '160-0022', '100-0001', '105-0001', '171-0022', '164-0001'] },
-    { state: 'Osaka', cities: ['Osaka', 'Sakai', 'Higashiosaka', 'Toyonaka', 'Suita', 'Ibaraki'], zips: ['530-0001', '590-0078', '577-0011', '560-0001', '564-0001', '567-0001'] },
-    { state: 'Kanagawa', cities: ['Yokohama', 'Kawasaki', 'Sagamihara', 'Yokosuka', 'Fujisawa', 'Atsugi'], zips: ['220-0001', '210-0001', '252-0001', '238-0001', '251-0001', '243-0001'] }
-  ],
-
-  'BRAZIL': [
-    { state: 'São Paulo', cities: ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo', 'Santo André', 'Osasco'], zips: ['01000-000', '07000-000', '13000-000', '09700-000', '09000-000', '06000-000'] },
-    { state: 'Rio de Janeiro', cities: ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu', 'Niterói', 'Belford Roxo'], zips: ['20000-000', '24400-000', '25000-000', '26000-000', '24000-000', '26100-000'] },
-    { state: 'Minas Gerais', cities: ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora', 'Betim', 'Montes Claros'], zips: ['30000-000', '38400-000', '32000-000', '36000-000', '32600-000', '39400-000'] }
-  ],
-
-  'ITALY': [
-    { state: 'Lazio', cities: ['Rome', 'Latina', 'Frosinone', 'Viterbo', 'Rieti'], zips: ['00100', '04100', '03100', '01100', '02100'] },
-    { state: 'Lombardy', cities: ['Milan', 'Bergamo', 'Brescia', 'Como', 'Cremona'], zips: ['20100', '24100', '25100', '22100', '26100'] },
-    { state: 'Campania', cities: ['Naples', 'Salerno', 'Caserta', 'Avellino', 'Benevento'], zips: ['80100', '84100', '81100', '83100', '82100'] }
-  ],
-
-  'SPAIN': [
-    { state: 'Madrid', cities: ['Madrid', 'Alcalá de Henares', 'Móstoles', 'Fuenlabrada', 'Leganés'], zips: ['28001', '28801', '28931', '28941', '28911'] },
-    { state: 'Catalonia', cities: ['Barcelona', 'L\'Hospitalet', 'Badalona', 'Sabadell', 'Terrassa'], zips: ['08001', '08901', '08911', '08201', '08221'] },
-    { state: 'Andalusia', cities: ['Seville', 'Málaga', 'Córdoba', 'Granada', 'Cádiz'], zips: ['41001', '29001', '14001', '18001', '11001'] }
-  ],
-
-  'NETHERLANDS': [
-    { state: 'North Holland', cities: ['Amsterdam', 'Haarlem', 'Zaanstad', 'Amstelveen', 'Hoofddorp'], zips: ['1000', '2000', '1500', '1180', '2130'] },
-    { state: 'South Holland', cities: ['Rotterdam', 'The Hague', 'Leiden', 'Dordrecht', 'Zoetermeer'], zips: ['3000', '2500', '2300', '3300', '2700'] },
-    { state: 'Utrecht', cities: ['Utrecht', 'Amersfoort', 'Nieuwegein', 'Veenendaal', 'Zeist'], zips: ['3500', '3800', '3430', '3900', '3700'] }
   ]
 };
 
