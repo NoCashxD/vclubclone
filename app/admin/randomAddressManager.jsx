@@ -34,6 +34,21 @@ const RandomAddressManager = () => {
     }
   };
 
+  const handleDebugCountries = async () => {
+    setLoading(true);
+    setStatus("Fetching countries from database...");
+    try {
+      const res = await axios.get(`${baseUrl}/api/admin/addresses/debug-countries`);
+      const countries = res?.data?.countries || [];
+      const countryList = countries.map(c => `${c.country} (${c.count} entries)`).join(', ');
+      setStatus(`Found ${res?.data?.totalCountries} countries: ${countryList}`);
+    } catch (e) {
+      setStatus(e?.response?.data?.message || "Failed to fetch countries.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-semibold">Random Address Manager</h2>
@@ -43,6 +58,9 @@ const RandomAddressManager = () => {
         </button>
         <button type="button" disabled={loading} onClick={handleGenerate} className="px-4 py-2 bg-green-600 text-white rounded">
           Generate Random Addresses
+        </button>
+        <button type="button" disabled={loading} onClick={handleDebugCountries} className="px-4 py-2 bg-blue-600 text-white rounded">
+          Debug Countries
         </button>
       </div>
       {status ? <div className="mt-2 text-sm">{status}</div> : null}
