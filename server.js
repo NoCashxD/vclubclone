@@ -3483,27 +3483,92 @@ app.get('/api/admin/tickets', (req, res) => {
   });
 });
 
+// Comprehensive address data for multiple countries
+const addressData = {
+  USA: [
+    { state: 'California', cities: ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento'], zips: ['90001', '92101', '95112', '94102', '93701', '95814'] },
+    { state: 'Texas', cities: ['Houston', 'Dallas', 'Austin', 'San Antonio', 'Fort Worth', 'El Paso'], zips: ['77002', '75201', '73301', '78205', '76102', '79901'] },
+    { state: 'New York', cities: ['New York', 'Buffalo', 'Rochester', 'Albany', 'Syracuse', 'Yonkers'], zips: ['10001', '14201', '14604', '12207', '13201', '10701'] },
+    { state: 'Florida', cities: ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'St. Petersburg', 'Hialeah'], zips: ['33101', '32801', '33602', '32202', '33701', '33010'] },
+    { state: 'Illinois', cities: ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville', 'Springfield'], zips: ['60601', '60502', '61101', '60435', '60540', '62701'] }
+  ],
+
+  India: [
+    { state: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur'], zips: ['400001', '411001', '440001', '422001', '431001', '413001'] },
+    { state: 'Karnataka', cities: ['Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi', 'Belagavi', 'Kalaburagi'], zips: ['560001', '570001', '575001', '580020', '590001', '585101'] },
+    { state: 'Delhi', cities: ['New Delhi', 'Dwarka', 'Saket', 'Rohini', 'Karol Bagh', 'Lajpat Nagar'], zips: ['110001', '110075', '110017', '110085', '110005', '110024'] },
+    { state: 'Tamil Nadu', cities: ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli'], zips: ['600001', '641001', '625001', '620001', '636001', '627001'] },
+    { state: 'Gujarat', cities: ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Bhavnagar', 'Jamnagar'], zips: ['380001', '395001', '390001', '360001', '364001', '361001'] }
+  ],
+
+  UK: [
+    { state: 'England', cities: ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds', 'Sheffield'], zips: ['EC1A', 'M1', 'B1', 'L1', 'LS1', 'S1'] },
+    { state: 'Scotland', cities: ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Stirling', 'Perth'], zips: ['EH1', 'G1', 'AB10', 'DD1', 'FK8', 'PH1'] },
+    { state: 'Wales', cities: ['Cardiff', 'Swansea', 'Newport', 'Wrexham', 'Barry', 'Caerphilly'], zips: ['CF10', 'SA1', 'NP10', 'LL11', 'CF62', 'CF83'] }
+  ],
+
+  Canada: [
+    { state: 'Ontario', cities: ['Toronto', 'Ottawa', 'Mississauga', 'Hamilton', 'Brampton', 'London'], zips: ['M5A', 'K1A', 'L5B', 'L8P', 'L6T', 'N6A'] },
+    { state: 'British Columbia', cities: ['Vancouver', 'Victoria', 'Surrey', 'Kelowna', 'Burnaby', 'Richmond'], zips: ['V5K', 'V8W', 'V3T', 'V1Y', 'V5A', 'V6X'] },
+    { state: 'Quebec', cities: ['Montreal', 'Quebec City', 'Laval', 'Gatineau', 'Longueuil', 'Sherbrooke'], zips: ['H1A', 'G1A', 'H7A', 'J8P', 'J4K', 'J1H'] }
+  ],
+
+  Australia: [
+    { state: 'New South Wales', cities: ['Sydney', 'Newcastle', 'Wollongong', 'Parramatta', 'Liverpool', 'Penrith'], zips: ['2000', '2300', '2500', '2150', '2170', '2750'] },
+    { state: 'Victoria', cities: ['Melbourne', 'Geelong', 'Ballarat', 'Bendigo', 'Shepparton', 'Warrnambool'], zips: ['3000', '3220', '3350', '3550', '3630', '3280'] },
+    { state: 'Queensland', cities: ['Brisbane', 'Gold Coast', 'Cairns', 'Townsville', 'Toowoomba', 'Rockhampton'], zips: ['4000', '4217', '4870', '4810', '4350', '4700'] }
+  ],
+
+  Germany: [
+    { state: 'Bavaria', cities: ['Munich', 'Nuremberg', 'Augsburg', 'Regensburg', 'Würzburg', 'Ingolstadt'], zips: ['80331', '90402', '86150', '93047', '97070', '85049'] },
+    { state: 'North Rhine-Westphalia', cities: ['Cologne', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum'], zips: ['50667', '40213', '44135', '45127', '47051', '44787'] },
+    { state: 'Baden-Württemberg', cities: ['Stuttgart', 'Mannheim', 'Karlsruhe', 'Freiburg', 'Heidelberg', 'Ulm'], zips: ['70173', '68159', '76133', '79098', '69117', '89073'] }
+  ],
+
+  France: [
+    { state: 'Île-de-France', cities: ['Paris', 'Boulogne-Billancourt', 'Saint-Denis', 'Argenteuil', 'Montreuil', 'Nanterre'], zips: ['75001', '92100', '93200', '95100', '93100', '92000'] },
+    { state: 'Auvergne-Rhône-Alpes', cities: ['Lyon', 'Saint-Étienne', 'Grenoble', 'Villeurbanne', 'Clermont-Ferrand', 'Valence'], zips: ['69001', '42000', '38000', '69100', '63000', '26000'] },
+    { state: 'Provence-Alpes-Côte d\'Azur', cities: ['Marseille', 'Nice', 'Toulon', 'Aix-en-Provence', 'Avignon', 'Cannes'], zips: ['13001', '06000', '83000', '13100', '84000', '06400'] }
+  ],
+
+  Japan: [
+    { state: 'Tokyo', cities: ['Shibuya', 'Shinjuku', 'Chiyoda', 'Minato', 'Toshima', 'Nakano'], zips: ['150-0002', '160-0022', '100-0001', '105-0001', '171-0022', '164-0001'] },
+    { state: 'Osaka', cities: ['Osaka', 'Sakai', 'Higashiosaka', 'Toyonaka', 'Suita', 'Ibaraki'], zips: ['530-0001', '590-0078', '577-0011', '560-0001', '564-0001', '567-0001'] },
+    { state: 'Kanagawa', cities: ['Yokohama', 'Kawasaki', 'Sagamihara', 'Yokosuka', 'Fujisawa', 'Atsugi'], zips: ['220-0001', '210-0001', '252-0001', '238-0001', '251-0001', '243-0001'] }
+  ],
+
+  Brazil: [
+    { state: 'São Paulo', cities: ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo', 'Santo André', 'Osasco'], zips: ['01000-000', '07000-000', '13000-000', '09700-000', '09000-000', '06000-000'] },
+    { state: 'Rio de Janeiro', cities: ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu', 'Niterói', 'Belford Roxo'], zips: ['20000-000', '24400-000', '25000-000', '26000-000', '24000-000', '26100-000'] },
+    { state: 'Minas Gerais', cities: ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora', 'Betim', 'Montes Claros'], zips: ['30000-000', '38400-000', '32000-000', '36000-000', '32600-000', '39400-000'] }
+  ]
+};
+
+// External API fallback for unknown countries (optional)
+async function fetchAddressFromAPI(country) {
+  try {
+    // Using a free API service for random addresses
+    const response = await fetch(`https://random-data-api.com/api/address/random_address?size=1`);
+    if (response.ok) {
+      const data = await response.json();
+      return {
+        address: `${data.street_address}`,
+        city: data.city,
+        state: data.state,
+        zip: data.zip_code
+      };
+    }
+  } catch (error) {
+    console.log('External API fallback failed:', error.message);
+  }
+  return null;
+}
+
 // Util: Random realistic address generator by country
 function generateRandomAddressByCountry(country) {
   const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-  // USA dataset
-  const usaStates = [
-    { state: 'California', cities: ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco'], zips: ['90001', '92101', '95112', '94102'] },
-    { state: 'Texas', cities: ['Houston', 'Dallas', 'Austin', 'San Antonio'], zips: ['77002', '75201', '73301', '78205'] },
-    { state: 'New York', cities: ['New York', 'Buffalo', 'Rochester', 'Albany'], zips: ['10001', '14201', '14604', '12207'] },
-    { state: 'Florida', cities: ['Miami', 'Orlando', 'Tampa', 'Jacksonville'], zips: ['33101', '32801', '33602', '32202'] }
-  ];
-
-  // India dataset
-  const indiaStates = [
-    { state: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur', 'Nashik'], zips: ['400001', '411001', '440001', '422001'] },
-    { state: 'Karnataka', cities: ['Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi'], zips: ['560001', '570001', '575001', '580020'] },
-    { state: 'Delhi', cities: ['New Delhi', 'Dwarka', 'Saket', 'Rohini'], zips: ['110001', '110075', '110017', '110085'] },
-    { state: 'Tamil Nadu', cities: ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli'], zips: ['600001', '641001', '625001', '620001'] }
-  ];
-
-  const streetNames = ['Main St', 'Oak Ave', 'Maple Dr', 'Pine St', 'Cedar Ln', 'Elm St', 'Park Ave', 'Lakeview Dr'];
+  const streetNames = ['Main St', 'Oak Ave', 'Maple Dr', 'Pine St', 'Cedar Ln', 'Elm St', 'Park Ave', 'Lakeview Dr', 'First St', 'Second Ave', 'Third Blvd', 'Fourth Rd'];
   const houseNum = Math.floor(Math.random() * 899) + 100; // 100-999
   const addressLine = `${houseNum} ${randomPick(streetNames)}`;
 
@@ -3512,144 +3577,101 @@ function generateRandomAddressByCountry(country) {
   }
 
   const normalized = country.toLowerCase();
-  if (normalized.includes('usa') || normalized.includes('united states') || normalized.includes('us') || normalized.includes('u.s.')) {
-    const region = randomPick(usaStates);
-    return {
-      address: addressLine,
-      city: randomPick(region.cities),
-      state: region.state,
-      zip: randomPick(region.zips)
-    };
+  
+  // Check for exact matches first
+  for (const [countryKey, states] of Object.entries(addressData)) {
+    if (normalized.includes(countryKey.toLowerCase()) || 
+        (countryKey === 'USA' && (normalized.includes('usa') || normalized.includes('united states') || normalized.includes('us') || normalized.includes('u.s.'))) ||
+        (countryKey === 'UK' && (normalized.includes('uk') || normalized.includes('united kingdom') || normalized.includes('britain'))) ||
+        (countryKey === 'India' && (normalized.includes('india') || normalized.includes('bharat') || normalized === 'in'))) {
+      const region = randomPick(states);
+      return {
+        address: addressLine,
+        city: randomPick(region.cities),
+        state: region.state,
+        zip: randomPick(region.zips)
+      };
+    }
   }
 
-  if (normalized.includes('india') || normalized.includes('bharat') || normalized === 'in') {
-    const region = randomPick(indiaStates);
-    return {
-      address: addressLine,
-      city: randomPick(region.cities),
-      state: region.state,
-      zip: randomPick(region.zips)
-    };
-  }
-
-  // Default generic
+  // Default generic for unknown countries
   return { address: addressLine, city: 'Central', state: 'Region', zip: '00000' };
 }
 
 // Admin: Clear all address fields (preserve country)
 app.post('/api/admin/addresses/clear', (req, res) => {
-  // For safety and atomicity, run sequential updates per table
-  const updates = [
-    { sql: 'UPDATE two_d_cards SET city = NULL, state = NULL, zip = NULL', params: [] },
-    { sql: 'UPDATE two_d_cart SET city = NULL, state = NULL, zip = NULL', params: [] },
-    { sql: 'UPDATE cart SET addr = NULL, city = NULL, state = NULL, zip = NULL', params: [] },
-    { sql: 'UPDATE buyed SET addr = NULL, city = NULL, state = NULL, zip = NULL', params: [] }
-  ];
-
-  let idx = 0;
-  const runNext = () => {
-    if (idx >= updates.length) {
-      return res.status(200).send({ message: 'All address fields cleared (country preserved) across tables.' });
+  // Only operate on credit_card table
+  const sql = 'UPDATE credit_card SET addr = NULL, city = NULL, state = NULL, zip = NULL';
+  db.query(sql, [], (err) => {
+    if (err) {
+      console.error('Clear addresses (credit_card) error:', err);
+      return res.status(500).send({ message: 'Database error while clearing addresses in credit_card' });
     }
-    const { sql, params } = updates[idx++];
-    db.query(sql, params, (err) => {
-      if (err) {
-        console.error('Clear addresses error:', err);
-        return res.status(500).send({ message: 'Database error while clearing addresses' });
-      }
-      runNext();
-    });
-  };
-  runNext();
+    return res.status(200).send({ message: 'All address fields cleared in credit_card (country preserved).' });
+  });
 });
 
 // Admin: Generate random addresses per entry, based on existing country
-app.post('/api/admin/addresses/generate', (req, res) => {
-  // For each table, fetch id + country (and any required primary key) then update per row
-  const processTable = (selectSql, updateSqlBuilder, label, cb) => {
-    db.query(selectSql, (err, rows) => {
-      if (err) {
-        console.error(`Select from ${label} failed:`, err);
-        return cb(err);
-      }
-      if (!rows || rows.length === 0) return cb();
+app.post('/api/admin/addresses/generate', async (req, res) => {
+  // Only operate on credit_card table
+  const selectSql = 'SELECT id, country FROM credit_card';
+  db.query(selectSql, async (err, rows) => {
+    if (err) {
+      console.error('Select from credit_card failed:', err);
+      return res.status(500).send({ message: 'Database error while reading credit_card' });
+    }
+    if (!rows || rows.length === 0) {
+      return res.status(200).send({ message: 'No rows in credit_card to update.' });
+    }
 
-      let processed = 0;
-      let failed = false;
-      rows.forEach((row) => {
-        if (failed) return;
-        const addr = generateRandomAddressByCountry(row.country || '');
-        const { sql, params } = updateSqlBuilder(row, addr);
-        db.query(sql, params, (uErr) => {
-          if (uErr && !failed) {
-            failed = true;
-            console.error(`Update ${label} failed:`, uErr);
-            return cb(uErr);
+    let processed = 0;
+    let failed = false;
+    let apiUsed = false;
+
+    for (const row of rows) {
+      if (failed) break;
+      
+      let addr = generateRandomAddressByCountry(row.country || '');
+      
+      // If we got a generic address and country exists, try external API
+      if (addr.city === 'Central' && row.country && !addressData[row.country]) {
+        try {
+          const apiAddr = await fetchAddressFromAPI(row.country);
+          if (apiAddr) {
+            addr = apiAddr;
+            apiUsed = true;
           }
-          processed += 1;
-          if (processed === rows.length && !failed) cb();
+        } catch (error) {
+          console.log('API fallback failed for country:', row.country);
+        }
+      }
+
+      const updateSql = 'UPDATE credit_card SET addr = ?, city = ?, state = ?, zip = ? WHERE id = ?';
+      const params = [addr.address, addr.city, addr.state, addr.zip, row.id];
+      
+      await new Promise((resolve, reject) => {
+        db.query(updateSql, params, (uErr) => {
+          if (uErr) {
+            failed = true;
+            console.error('Update credit_card failed:', uErr);
+            reject(uErr);
+          } else {
+            processed += 1;
+            resolve();
+          }
         });
       });
-    });
-  };
+    }
 
-  // two_d_cards: id, country -> set city/state/zip
-  const runTwoDCards = (next) => processTable(
-    'SELECT id, country FROM two_d_cards',
-    (row, addr) => ({
-      sql: 'UPDATE two_d_cards SET city = ?, state = ?, zip = ? WHERE id = ?',
-      params: [addr.city, addr.state, addr.zip, row.id]
-    }),
-    'two_d_cards',
-    next
-  );
+    if (failed) {
+      return res.status(500).send({ message: 'Failed generating addresses for credit_card' });
+    }
 
-  // two_d_cart: id, country -> set city/state/zip
-  const runTwoDCart = (next) => processTable(
-    'SELECT id, country FROM two_d_cart',
-    (row, addr) => ({
-      sql: 'UPDATE two_d_cart SET city = ?, state = ?, zip = ? WHERE id = ?',
-      params: [addr.city, addr.state, addr.zip, row.id]
-    }),
-    'two_d_cart',
-    next
-  );
-
-  // cart: id, country -> set addr/city/state/zip
-  const runCart = (next) => processTable(
-    'SELECT id, country FROM cart',
-    (row, addr) => ({
-      sql: 'UPDATE cart SET addr = ?, city = ?, state = ?, zip = ? WHERE id = ?',
-      params: [addr.address, addr.city, addr.state, addr.zip, row.id]
-    }),
-    'cart',
-    next
-  );
-
-  // buyed: id, country -> set addr/city/state/zip
-  const runBuyed = (next) => processTable(
-    'SELECT id, country FROM buyed',
-    (row, addr) => ({
-      sql: 'UPDATE buyed SET addr = ?, city = ?, state = ?, zip = ? WHERE id = ?',
-      params: [addr.address, addr.city, addr.state, addr.zip, row.id]
-    }),
-    'buyed',
-    next
-  );
-
-  // Execute in series
-  runTwoDCards((err1) => {
-    if (err1) return res.status(500).send({ message: 'Failed generating addresses for two_d_cards' });
-    runTwoDCart((err2) => {
-      if (err2) return res.status(500).send({ message: 'Failed generating addresses for two_d_cart' });
-      runCart((err3) => {
-        if (err3) return res.status(500).send({ message: 'Failed generating addresses for cart' });
-        runBuyed((err4) => {
-          if (err4) return res.status(500).send({ message: 'Failed generating addresses for buyed' });
-          return res.status(200).send({ message: 'Random addresses generated for all entries based on country.' });
-        });
-      });
-    });
+    const message = apiUsed 
+      ? `Random addresses generated for ${processed} credit_card entries. Some used external API for unknown countries.`
+      : `Random addresses generated for ${processed} credit_card entries based on country.`;
+    
+    return res.status(200).send({ message });
   });
 });
 
