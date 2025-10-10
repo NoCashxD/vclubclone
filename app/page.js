@@ -1,186 +1,79 @@
-"use client";
-import { useState, useEffect } from 'react';
-import "./page.css"; // Your separate CSS file
-
-const Page = () => {
-  const [page, setPage] = useState(false); // For login click
-  const [showL7, setShowL7] = useState(true); // To control L7 display
-
-  useEffect(() => {
-    const hasSeenL7 = sessionStorage.getItem("seenL7");
-    if (hasSeenL7) {
-      setShowL7(false);
-    } else {
-      setShowL7(true);
-      setTimeout(() => {
-        setShowL7(false);
-        sessionStorage.setItem("seenL7", "true");
-      }, 5000);
-    }
-  }, []);
-
-if (showL7) {
+"use client"
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useEffect,useState } from "react";
+const page = () => {
+    const[loading,setLoading] = useState(true);
+    const[send,setSend] = useState(false);
+    const router = useRouter();
+    useEffect(()=>{
+        const timer1 = setTimeout(() => {
+            setLoading(false);
+            setSend(true);
+        }, 3000);
+        return ()=>clearTimeout(timer1)
+    },[])
+    useEffect(()=>{
+        if(!send) return
+        const timer1 = setTimeout(() => {
+            router.push("/")
+        }, 1000);
+        return ()=>clearTimeout(timer1)
+    },[send]);
   return (
-    <div
-      style={{
-        background: "#f4f4f4",
-        color: "#161616",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100dvh", // ✅ Dynamic height for mobile browsers
-        width: "100vw",
-        padding: "1rem",
-        boxSizing: "border-box",
-      }}
-    >
-      <style>{`
-        :root {
-          --primary: #f97316;
-          --accent: #facc15;
-          --background: #f4f4f4;
-          --foreground: #161616;
-          --muted: #6f6f6f;
-        }
-
-        body {
-          margin: 0;
-          background: var(--background);
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        .container-new {
-          text-align: center;
-          background: white;
-          padding: 2.5rem;
-          max-width: 510px;
-          width: 100%;
-          border-radius: 16px;
-          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 1.5rem;
-        }
-
-        .logo img {
-          height: 55px;
-        }
-
-        h2 {
-          font-size: 1.3rem;
-          font-weight: 700;
-          margin-bottom: 1rem;
-        }
-
-        p {
-          font-size: 0.95rem;
-          color: var(--muted);
-          margin: 0.4rem 0;
-          line-height: 1.5;
-        }
-
-        .progress-bar {
-          margin-top: 2rem;
-          height: 10px;
-          width: 100%;
-          background: #eee;
-          border-radius: 999px;
-          overflow: hidden;
-        }
-
-        .progress-bar-fill {
-          height: 100%;
-          width: 0%;
-          background: linear-gradient(to right, var(--primary), var(--accent));
-          animation: fillProgress 5s linear forwards;
-        }
-
-        @keyframes fillProgress {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-
-        @media (max-width: 480px) {
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
-
-          .container-new {
-            width: 100%;
-            max-width: 100%;
-            padding: 1.5rem 1rem;
-            margin: 0 auto;
-            box-shadow: none;
-            border-radius: 12px;
-          }
-
-          .logo {
-            margin-bottom: 1rem;
-          }
-
-          .logo img {
-            height: 28px;
-          }
-
-          h2 {
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-          }
-
-          p {
-            font-size: 0.8rem;
-            margin: 0.25rem 0;
-          }
-
-          .progress-bar {
-            height: 8px;
-            margin-top: 1.5rem;
-          }
-        }
-      `}</style>
-
-        <div className="container-new">
-          <div className="logo">
-            <img src="https://www.cloudflare.com/favicon.ico" alt="Cloudflare Logo" />
+    <div className="bg-[#222] w-screen h-screen text-[#d9d9d9] grid grid-rows-1" style={{
+    fontFamily:
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  }}>
+    <div className="flex flex-[1] flex-col items-center " >
+    <div className="m-[8rem_auto] px-[1.5rem] max-w-[60rem] w-[100%]">
+      <h1 className="!text-[2.5rem] font-[500]">unitedshop.in</h1>
+    {loading ? 
+     <>
+      <h2 className="!text-[1.5rem] mb-[2rem] font-[500]">Verifying you are human. This may take a few seconds.</h2>
+      <div className="h-[65px] w-[300px]">
+          <svg aria-hidden="true" className={"w-12 h-12 text-transparent animate-spin  fill-[#d9d9d9]"} viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+      </div>
+      <h2 className="text-[1.5rem] my-[2rem] font-[400]">
+        unitedshop.su needs to review the security of your connection before proceeding.
+      </h2>
+      </>
+   :
+      <div>
+      <h2 className="!text-[1.4rem] flex justify-start items-center gap-2 mb-[2rem] ml-[-15px]">
+        <img src="./tick.jpg" className="mt-[-7px]" width={"50px"} />
+        Verification successful
+      </h2>
+      <h2 className="!text-[1.5rem] font-[500]">Waiting for unitedshop.su to respond...</h2>
+      </div>
+    } 
+      
+    </div>
+    </div>
+      <div className="footer m-[0_auto] px-[1.5rem] max-w-[60rem] w-[100%] !text-[.75rem]" role="contentinfo">
+        <div className="footer-inner py-[1rem] border-t-[1px] border-[#d9d9d9] ">
+          <div className="clearfix diagnostic-wrapper mb-[.5rem]">
+            <div className="ray-id text-center">
+              Ray ID: <code>98c64c9f2abd4056</code>
+            </div>
           </div>
-          <h2>Checking your browser before accessing...</h2>
-          <p>This process is automatic. Your browser will redirect shortly.</p>
-          <p>Please wait while we verify you are not a bot...</p>
-
-          <div className="progress-bar">
-            <div className="progress-bar-fill"></div>
+          <div className="text-center" id="footer-text">
+            Performance &amp; security by{" "}
+            <a
+              rel="noopener noreferrer"
+              href="https://www.cloudflare.com?utm_source=challenge&amp;utm_campaign=m"
+              target="_blank"
+            >
+              Cloudflare
+            </a>
           </div>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div className={page ? 'h-[100vh] bg-black' : 'h-[100vh] bg-white'}>
-      {!page && (
-        <input 
-          type="submit" 
-          value="LOGIN" 
-          className="btnzz" 
-          onClick={() => setPage(true)} 
-        />
-      )}
-
-      {page && (
-        <div className='container flex justify-center items-center w-[100vw]'>
-          <a href="/login">
-            <div className='img'></div>
-          </a>
-        </div>
-      )}
     </div>
   );
 };
 
-export default Page;
+export default page;
